@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/LoginPage.css">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+    <title>Hochat Cafe - Login Page</title>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <!-- Logo Section -->
+            <div class="logo">
+                <img src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+                
+            </div>
+
+            <!-- Login Form -->
+            <form class="login-form" action="/login" method="POST">
+                <div class="input-field">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-field">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <div class="signup-link" onclick="window.location.href='/SignUpPage.html'">Sign up</div>
+        </div>
+    </div>
+
+    <script>
+     // Form submission handling
+    document.querySelector('.login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Initialize users if not exists
+        if (!localStorage.getItem('users')) {
+            const sampleUsers = [
+                {
+                    id: 1,
+                    firstName: "John",
+                    lastName: "Doe",
+                    email: "john@example.com",
+                    contactNumber: "09123456789",
+                    password: "password123"
+                },
+                {
+                    id: 2,
+                    firstName: "Jane",
+                    lastName: "Smith",
+                    email: "jane@example.com",
+                    contactNumber: "09876543210",
+                    password: "password456"
+                }
+            ];
+            localStorage.setItem('users', JSON.stringify(sampleUsers));
+        }
+        
+        // Get users from localStorage
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        // Check if user exists
+        const user = users.find(u => u.email === email);
+        
+        if (!user) {
+            alert('No account found with this email');
+            return;
+        }
+        
+        if (user.password !== password) {
+            alert('Incorrect password');
+            return;
+        }
+        
+        // Login successful - save current user (WITHOUT PASSWORD)
+        const userSession = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            contactNumber: user.contactNumber
+        };
+        
+        localStorage.setItem('currentUser', JSON.stringify(userSession));
+        
+        // Initialize user-specific data storage
+        initializeUserData(user.email);
+        
+        alert(`Login successful! Welcome back, ${user.firstName}!`);
+        
+        // Navigate to home page
+        window.location.href = 'HomePage.html';
+    });
+    
+    // Initialize user-specific data
+    function initializeUserData(userEmail) {
+        const userKey = `user_${userEmail}`;
+        
+        // If first time login, create user data structure
+        if (!localStorage.getItem(userKey)) {
+            const userData = {
+                cart: [],
+                orders: [],
+                favorites: []
+            };
+            localStorage.setItem(userKey, JSON.stringify(userData));
+        }
+    }
+    
+    // Sign up link functionality
+    document.querySelector('.signup-link').addEventListener('click', function() {
+        window.location.href = 'SignUpPage.html';
+    });
+</script>
+
+</body>
+</html>

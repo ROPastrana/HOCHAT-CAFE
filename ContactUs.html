@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+    <title>Hochat Café - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/ContactUs.css">
+</head>
+<body>
+    <!-- Header Section - Same as homepage -->
+    <header class="header">
+        <a href = "HomePage.html">
+            <img class="logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Café Logo">
+        <nav class="nav-menu">
+            <a class="nav-item" id="homeNav">HOME</a>
+            <a class="nav-item" id="transactionsNav">TRANSACTIONS</a>
+            <a class="nav-item" id="aboutNav">ABOUT US</a>
+            <a class="nav-item" id="contactNav">CONTACT US</a>
+            <a class="nav-item" id="ordersNav">ORDERS</a>
+            <a class="logout-nav-item" id="logoutNavItem">LOGOUT</a>
+        </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">×</button>
+        <div class="menu-header">
+            <img class="menu-logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a class="mobile-nav-item" id="mobileHome">HOME</a>
+            <a class="mobile-nav-item" id="mobileTransactions">TRANSACTIONS</a>
+            <a class="mobile-nav-item" id="mobileAbout">ABOUT US</a>
+            <a class="mobile-nav-item" id="mobileContact">CONTACT US</a>
+            <a class="mobile-nav-item" id="mobileOrders">ORDERS</a>
+            <a class="mobile-nav-item logout-mobile">LOGOUT</a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content - EXPANDED -->
+    <main class="main-content">
+        <h1 class="page-title">Connect With Us</h1>
+        <p class="contact-subtitle">We'd love to hear from you! Whether you have questions about our menu, want to book an event, or just want to share your experience, reach out to us through any of the ways below.</p>
+        
+        <div class="contact-methods-container">
+            <div class="contact-methods">
+                <!-- Messenger Button -->
+                <a href="https://www.facebook.com/messages/t/532700360588622" 
+                   class="contact-method" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   title="Chat with us on Messenger">
+                    <div class="contact-icon">
+                        <img src="HOTCHAT CAFE/free-facebook-messenger-icon-2882-thumb.png" alt="Messenger">
+                    </div>
+                    <div class="contact-label">Messenger</div>
+                    <div class="contact-description">Get quick responses through Facebook Messenger. Perfect for general inquiries and quick questions.</div>
+                    <div class="click-indicator">Click to chat on Messenger</div>
+                </a>
+                
+                <!-- Phone Button -->
+                <a href="tel:+639958298402" 
+                   class="contact-method" 
+                   title="Call us at 0995 829 8402">
+                    <div class="contact-icon">
+                        <img src="HOTCHAT CAFE/image-removebg-preview (14).png" alt="Phone">
+                    </div>
+                    <div class="contact-label phone-label">0995 829 8402</div>
+                    <div class="contact-description">Call us during business hours for reservations, catering orders, or urgent matters.</div>
+                    <div class="click-indicator">Click to call us now</div>
+                </a>
+                
+                <!-- Email Button -->
+                <a href="mailto:hochatcafe@gmail.com?subject=Inquiry%20from%20Hochat%20Café%20Website&body=Hello%20Hochat%20Café,%0A%0AI%20would%20like%20to%20inquire%20about..." 
+                   class="contact-method" 
+                   title="Send us an email">
+                    <div class="contact-icon">
+                        <img src="HOTCHAT CAFE/image-removebg-preview (15).png" alt="Email">
+                    </div>
+                    <div class="contact-label email-label">hochatcafe@gmail.com</div>
+                    <div class="contact-description">Send us detailed inquiries, feedback, or partnership proposals via email.</div>
+                    <div class="click-indicator">Click to send us an email</div>
+                </a>
+            </div>
+            
+            <div class="additional-info">
+                <h2 class="info-title">Visit Our Café</h2>
+                <p class="info-text">We're located at the center of the town of Gerona, Tarlac. We are offering a cozy atmosphere perfect for coffee meetings, work sessions, or relaxing with friends. Come experience the Hochat Café difference!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="social-section">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/HochatCafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/FACEBOOK_ICON.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/hochatcafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/INSTAGRAM_ICON.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!currentUser) {
+            // If no user is logged in, redirect to login page
+            alert('Please login to access this page');
+            window.location.href = 'index.html';
+        }
+
+        // Hamburger Menu Functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const logoutNavItem = document.getElementById('logoutNavItem');
+
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navigation functionality - CORRECTED
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.textContent;
+                switch(page) {
+                    case 'HOME':
+                        window.location.href = 'HomePage.html';
+                        break;
+                    case 'TRANSACTIONS':
+                        window.location.href = 'Transactions.html';
+                        break;
+                    case 'ABOUT US':
+                        window.location.href = 'AboutUs.html';
+                        break;
+                    case 'CONTACT US':
+                        window.location.href = 'ContactUs.html';
+                        break;
+                    case 'ORDERS':
+                        window.location.href = 'Cart.html'; // Cart.html is your orders page
+                        break;
+                }
+            });
+        });
+
+        // Logout functionality
+        logoutNavItem.addEventListener('click', function() {
+            if(confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('currentUser');
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Mobile menu navigation - CORRECTED
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if(this.classList.contains('logout-mobile')) {
+                    if(confirm('Are you sure you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        alert('Logged out successfully!');
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'TRANSACTIONS':
+                            window.location.href = 'Transactions.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html'; // Cart.html is your orders page
+                            break;
+                    }
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.nav-item').forEach(item => {
+            if(currentPage === 'ContactUs.html' && item.textContent === 'CONTACT US') {          
+            }
+        });
+
+        // Also highlight in mobile menu
+        if(currentPage === 'ContactUs.html') {
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                if(item.textContent === 'CONTACT US') {
+                    
+                }
+            });
+        }
+
+        // Optional: Add click tracking for analytics
+        document.querySelectorAll('.contact-method').forEach(method => {
+            method.addEventListener('click', function(e) {
+                const methodName = this.querySelector('.contact-label').textContent;
+                console.log(`Contact method clicked: ${methodName}`);
+                // You can add analytics tracking here
+                // Example: trackEvent('contact_method', methodName);
+            });
+        });
+    </script>
+</body>
+</html>

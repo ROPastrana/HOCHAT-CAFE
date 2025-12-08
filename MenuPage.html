@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <title>Hochat Café - Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+    <link rel = "stylesheet" href = "CSS FILES/MenuPage.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <a href = "HomePage.html">
+            <img class="logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Café Logo">
+        <nav class="nav-menu">
+            <a class="nav-item">HOME</a>
+            <a class="nav-item">TRANSACTIONS</a>
+            <a class="nav-item">ABOUT US</a>
+            <a class="nav-item">CONTACT US</a>
+            <a class="nav-item">ORDERS</a>
+            <a class="logout-nav-item" id="logoutNavItem">LOGOUT</a>
+        </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">×</button>
+        <div class="menu-header">
+            <img class="menu-logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a class="mobile-nav-item">HOME</a>
+            <a class="mobile-nav-item">TRANSACTIONS</a>
+            <a class="mobile-nav-item">ABOUT US</a>
+            <a class="mobile-nav-item">CONTACT US</a>
+            <a class="mobile-nav-item">ORDERS</a>
+            <a class="mobile-nav-item logout-mobile">LOGOUT</a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">All Products</h1>
+        
+        <!-- Menu Categories Grid - 2 rows × 3 columns -->
+        <div class="menu-grid">
+            <!-- Row 1 -->
+            <!-- Meals Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Meals.jpg" alt="Meals">
+                    </div>
+                </div>
+                <h2 class="category-title">Meals</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+            
+            <!-- Silog Specials Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Silog Meals.jpg" alt="Silog Specials">
+                    </div>
+                </div>
+                <h2 class="category-title">Silog Specials</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+            
+            <!-- Snacks Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Snacks.jpg" alt="Snacks">
+                    </div>
+                </div>
+                <h2 class="category-title">Snacks</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+            
+            <!-- Row 2 -->
+            <!-- Bilao Specials Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Bilao Meals.jpg" alt="Bilao Specials">
+                    </div>
+                </div>
+                <h2 class="category-title">Bilao Specials</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+            
+            <!-- Drinks Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Drinks.jpg" alt="Drinks">
+                    </div>
+                </div>
+                <h2 class="category-title">Drinks</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+            
+            <!-- Desserts Category -->
+            <div class="category-item">
+                <div class="bubble-container">
+                    <div class="food-bubble">
+                        <img class="food-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/Desserts.jpg" alt="Desserts">
+                    </div>
+                </div>
+                <h2 class="category-title">Desserts</h2>
+                <button class="explore-btn">Explore</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="social-section">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/HochatCafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/FACEBOOK_ICON.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/hochatcafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/INSTAGRAM_ICON.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        
+        // Get current user safely
+        function getCurrentUser() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                // Redirect to login if no user
+                window.location.href = 'index.html';
+                return null;
+            }
+            return user;
+        }
+        
+        // Get user-specific key
+        function getUserKey() {
+            const user = getCurrentUser();
+            return user ? `user_${user.email}` : null;
+        }
+        
+        // Get user data
+        function getUserData() {
+            const userKey = getUserKey();
+            if (!userKey) return null;
+            
+            const data = localStorage.getItem(userKey);
+            return data ? JSON.parse(data) : { cart: [], orders: [], favorites: [] };
+        }
+        
+        // Save user data
+        function saveUserData(data) {
+            const userKey = getUserKey();
+            if (userKey && data) {
+                localStorage.setItem(userKey, JSON.stringify(data));
+            }
+        }
+        
+        // Get user cart
+        function getUserCart() {
+            const userData = getUserData();
+            return userData ? userData.cart : [];
+        }
+        
+        // Save user cart
+        function saveUserCart(cart) {
+            const userData = getUserData();
+            if (userData) {
+                userData.cart = cart;
+                saveUserData(userData);
+            }
+        }
+        
+        // Get user orders
+        function getUserOrders() {
+            const userData = getUserData();
+            return userData ? userData.orders : [];
+        }
+        
+        // Save user order
+        function saveUserOrder(order) {
+            const userData = getUserData();
+            if (userData) {
+                userData.orders.push(order);
+                saveUserData(userData);
+            }
+        }
+        
+        // Generate unique ID
+        function generateOrderId() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000);
+            return `HOCHAT-${timestamp}-${random}`;
+        }
+        
+        // ========== MENU PAGE SPECIFIC CODE ==========
+        
+        // Check if user is logged in
+        const currentUser = getCurrentUser();
+        if (!currentUser) {
+            alert('Please login to access the menu');
+            window.location.href = 'index.html';
+        }
+
+        // Hamburger Menu Functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const logoutNavItem = document.getElementById('logoutNavItem');
+
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navigation functionality - CORRECTED
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.textContent;
+                switch(page) {
+                    case 'HOME':
+                        window.location.href = 'HomePage.html';
+                        break;
+                    case 'TRANSACTIONS':
+                        window.location.href = 'Transactions.html';
+                        break;
+                    case 'ABOUT US':
+                        window.location.href = 'AboutUs.html';
+                        break;
+                    case 'CONTACT US':
+                        window.location.href = 'ContactUs.html';
+                        break;
+                    case 'ORDERS':
+                        window.location.href = 'Cart.html'; // Cart.html is your orders page
+                        break;
+                }
+            });
+        });
+
+        // Logout functionality
+        logoutNavItem.addEventListener('click', function() {
+            if(confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('currentUser');
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Mobile menu navigation - CORRECTED
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if(this.classList.contains('logout-mobile')) {
+                    if(confirm('Are you sure you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        alert('Logged out successfully!');
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'TRANSACTIONS':
+                            window.location.href = 'Transactions.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html'; // Cart.html is your orders page
+                            break;
+                    }
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Explore buttons - Navigate to specific category pages
+        document.querySelectorAll('.explore-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.parentElement.querySelector('.category-title').textContent;
+                
+                switch(category) {
+                    case 'Meals':
+                        window.location.href = 'MealsMenuPage.html';
+                        break;
+                    case 'Silog Specials':
+                        window.location.href = 'SilogMenuPage.html';
+                        break;
+                    case 'Snacks':
+                        window.location.href = 'SnacksMenuPage.html';
+                        break;
+                    case 'Bilao Specials':
+                        window.location.href = 'BilaoMealsMenuPage.html';
+                        break;
+                    case 'Drinks':
+                        window.location.href = 'DrinksMenuPage.html';
+                        break;
+                    case 'Desserts':
+                        window.location.href = 'DessertsMenuPage.html';
+                        break;
+                    default:
+                        alert(`Exploring ${category}...`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

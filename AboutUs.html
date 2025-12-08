@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hochat Café - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&display=swap" rel="stylesheet">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="CSS FILES/AboutUs.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <a href = "HomePage.html">
+            <img class="logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Café Logo">
+        <nav class="nav-menu">
+            <a class="nav-item" id="homeNav">HOME</a>
+            <a class="nav-item" id="transactionsNav">TRANSACTIONS</a>
+            <a class="nav-item" id="aboutNav">ABOUT US</a>
+            <a class="nav-item" id="contactNav">CONTACT US</a>
+            <a class="nav-item" id="ordersNav">ORDERS</a>
+            <a class="logout-nav-item" id="logoutNavItem">LOGOUT</a>
+        </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">×</button>
+        <div class="menu-header">
+            <img class="menu-logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a class="mobile-nav-item" id="mobileHome">HOME</a>
+            <a class="mobile-nav-item" id="mobileTransactions">TRANSACTIONS</a>
+            <a class="mobile-nav-item" id="mobileAbout">ABOUT US</a>
+            <a class="mobile-nav-item" id="mobileContact">CONTACT US</a>
+            <a class="mobile-nav-item" id="mobileOrders">ORDERS</a>
+            <a class="mobile-nav-item logout-mobile">LOGOUT</a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 class="page-title">The Hochat Cafe Story</h1>
+        
+        <div class="contact-container">
+            <div class="contact-image">
+                <!-- First Image -->
+                <img src="HOTCHAT CAFE/HOCHAT RESTO.jpg" alt="Hochat Cafe Interior">
+                
+                <!-- NEW: Second Image Below -->
+                <!-- Replace 'your-second-image.jpg' with your actual image file name -->
+                <img src="HOTCHAT CAFE/RESTO LABAS.jpg" alt="Hochat Cafe Additional Image" class="second-image">
+            </div>
+            
+            <div class="contact-content">
+                <div class="story-text">
+                    HoChat Cafe started as a welcoming neighborhood spot, built on the idea of creating meaningful connections through delicious food and refreshing drinks. What began as a humble space quickly became a go-to hangout for families, students, and food lovers in the community.
+                    <br><br>
+                    Founded on April 8, 2019, HoChat Cafe opened its doors with the goal of offering more than just coffee. From silog meals and crispy chicken dishes to sweet graham desserts and refreshing beverages, every item on the menu was crafted to give customers a comforting and satisfying experience.
+                    <br><br>
+                    Over time, HoChat Cafe grew not only as a dining place but also as a community hub — a space where people could relax, study, catch up, and create memories. Beyond the café, HoChat also sets up mini stalls during special occasions and local events, bringing its well-loved food and drinks even closer to the community. With its warm ambiance and friendly service, it became a favorite spot for everyday conversations and special moments alike.
+                    <br><br>
+                    From the beginning, HoChat Cafe set out to be more than just a café. It became a place that celebrates good food, warm connections, and Filipino hospitality — bringing a sense of comfort and belonging with every cup and every meal.
+                </div>
+            </div>
+        </div>
+        
+        <div class="mission-section">
+            <h2 class="mission-title">Our Mission</h2>
+            <p class="mission-text">Every dish,
+every drink,
+every story shared —
+brings us together
+in one warm space.</p>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="social-section">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/HochatCafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/FACEBOOK_ICON.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/hochatcafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/INSTAGRAM_ICON.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+            // Check if user is logged in
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        
+        if (!currentUser) {
+            // If no user is logged in, redirect to login page
+            alert('Please login to access this page');
+            window.location.href = 'index.html';
+        }
+
+        // Hamburger Menu Functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const logoutNavItem = document.getElementById('logoutNavItem');
+
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navigation functionality 
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.textContent;
+                switch(page) {
+                    case 'HOME':
+                        window.location.href = 'HomePage.html';
+                        break;
+                    case 'TRANSACTIONS':
+                        window.location.href = 'Transactions.html';
+                        break;
+                    case 'ABOUT US':
+                        window.location.href = 'AboutUs.html';
+                        break;
+                    case 'CONTACT US':
+                        window.location.href = 'ContactUs.html';
+                        break;
+                    case 'ORDERS':
+                        window.location.href = 'Cart.html'; // Cart.html is your orders page
+                        break;
+                }
+            });
+        });
+
+        // Logout functionality
+        logoutNavItem.addEventListener('click', function() {
+            if(confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('currentUser');
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Mobile menu navigation 
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if(this.classList.contains('logout-mobile')) {
+                    if(confirm('Are you sure you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        alert('Logged out successfully!');
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'TRANSACTIONS':
+                            window.location.href = 'Transactions.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html'; // Cart.html is your orders page
+                            break;
+                    }
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.nav-item').forEach(item => {
+            if(currentPage === 'AboutUs.html' && item.textContent === 'ABOUT US') {
+                
+            }
+        });
+
+        // Also highlight in mobile menu
+        if(currentPage === 'AboutUs.html') {
+            document.querySelectorAll('.mobile-nav-item').forEach(item => {
+                if(item.textContent === 'ABOUT US') {
+                    
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+
+    <title>Hochat Café - Add to Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/AddToCart.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <a href = "HomePage.html">
+            <img class="logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Café Logo">
+        <nav class="nav-menu">
+            <a class="nav-item">HOME</a>
+            <a class="nav-item">TRANSACTIONS</a>
+            <a class="nav-item">ABOUT US</a>
+            <a class="nav-item">CONTACT US</a>
+            <a class="nav-item">ORDERS</a>
+            <a class="logout-nav-item" id="logoutNavItem">LOGOUT</a>
+        </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">×</button>
+        <div class="menu-header">
+            <img class="menu-logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a class="mobile-nav-item">HOME</a>
+            <a class="mobile-nav-item">TRANSACTIONS</a>
+            <a class="mobile-nav-item">ABOUT US</a>
+            <a class="mobile-nav-item">CONTACT US</a>
+            <a class="mobile-nav-item">ORDERS</a>
+            <a class="mobile-nav-item logout-mobile">LOGOUT</a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="cart-container">
+            <!-- Page Header with Back Button -->
+            <div class="page-header">
+                <h1 class="page-title">Add to Cart</h1>
+                <button class="back-btn" id="backBtn">Back</button>
+            </div>
+            
+            <div class="cart-layout">
+                <!-- Left: Item Visual Card -->
+                <div class="item-card">
+                    <img class="item-image" src="HOTCHAT CAFE/MENU PAGE IMAGES/MEALS/Chicken Bulgogi.jpg" alt="Chicken Bulgogi" id="itemImage">
+                    <button class="add-to-cart-btn" id="addToCartBtn">
+                        <div class="btn-text">Add To Cart</div>
+                    </button>
+                </div>
+                
+                <!-- Right: Item Information -->
+                <div class="item-info">
+                    <h2 class="item-name-large" id="itemName">Chicken Bulgogi</h2>
+                    <div class="item-price-large" id="itemPrice">₱ 105</div>
+                    
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" id="decreaseBtn">-</button>
+                        <div class="quantity-display" id="quantityDisplay">1</div>
+                        <button class="quantity-btn" id="increaseBtn">+</button>
+                    </div>
+                    
+                    <div class="total-price" id="totalPrice">
+                        Total: ₱ 105
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="social-section">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/HochatCafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/FACEBOOK_ICON.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/hochatcafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/INSTAGRAM_ICON.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        
+        // Get current user safely
+        function getCurrentUser() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                // Redirect to login if no user
+                window.location.href = 'index.html';
+                return null;
+            }
+            return user;
+        }
+        
+        // Get user-specific key
+        function getUserKey() {
+            const user = getCurrentUser();
+            return user ? `user_${user.email}` : null;
+        }
+        
+        // Get user data
+        function getUserData() {
+            const userKey = getUserKey();
+            if (!userKey) return null;
+            
+            const data = localStorage.getItem(userKey);
+            return data ? JSON.parse(data) : { cart: [], orders: [], favorites: [] };
+        }
+        
+        // Save user data
+        function saveUserData(data) {
+            const userKey = getUserKey();
+            if (userKey && data) {
+                localStorage.setItem(userKey, JSON.stringify(data));
+            }
+        }
+        
+        // Get user cart
+        function getUserCart() {
+            const userData = getUserData();
+            return userData ? userData.cart : [];
+        }
+        
+        // Save user cart
+        function saveUserCart(cart) {
+            const userData = getUserData();
+            if (userData) {
+                userData.cart = cart;
+                saveUserData(userData);
+            }
+        }
+        
+        // Generate unique ID
+        function generateOrderId() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000);
+            return `HOCHAT-${timestamp}-${random}`;
+        }
+        
+        // ========== MAIN CODE ==========
+        
+        // Check if user is logged in
+        const currentUser = getCurrentUser();
+        if (!currentUser) {
+            alert('Please login to add items to cart');
+            window.location.href = 'index.html';
+        }
+        
+        // Hamburger Menu Functionality
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const logoutNavItem = document.getElementById('logoutNavItem');
+        const backBtn = document.getElementById('backBtn');
+        
+        // Hamburger Menu
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Navigation - CORRECTED FOR ALL PAGES
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const page = this.textContent;
+                switch(page) {
+                    case 'HOME':
+                        window.location.href = 'HomePage.html';
+                        break;
+                    case 'TRANSACTIONS':
+                        window.location.href = 'Transactions.html';
+                        break;
+                    case 'ABOUT US':
+                        window.location.href = 'AboutUs.html';
+                        break;
+                    case 'CONTACT US':
+                        window.location.href = 'ContactUs.html';
+                        break;
+                    case 'ORDERS':
+                        window.location.href = 'Cart.html';
+                        break;
+                }
+            });
+        });
+        
+        // Logout
+        logoutNavItem.addEventListener('click', function() {
+            if(confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('currentUser');
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // Mobile menu navigation 
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if(this.classList.contains('logout-mobile')) {
+                    if(confirm('Are you sure you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        alert('Logged out successfully!');
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'TRANSACTIONS':
+                            window.location.href = 'Transactions.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html';
+                            break;
+                    }
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+        
+        // Cart functionality
+        let quantity = 1;
+        let basePrice = 0;
+        const quantityDisplay = document.getElementById('quantityDisplay');
+        const totalPrice = document.getElementById('totalPrice');
+        const increaseBtn = document.getElementById('increaseBtn');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const itemNameElement = document.getElementById('itemName');
+        const itemPriceElement = document.getElementById('itemPrice');
+        const itemImageElement = document.getElementById('itemImage');
+        
+        // Get selected item from localStorage
+        const selectedItem = JSON.parse(localStorage.getItem('selectedItem'));
+        
+        if (selectedItem) {
+            // Update the page with selected item details
+            itemNameElement.textContent = selectedItem.name;
+            itemPriceElement.textContent = `₱ ${selectedItem.price}`;
+            itemImageElement.src = selectedItem.image;
+            
+            // Set basePrice for calculations
+            basePrice = selectedItem.price;
+            updateTotalPrice();
+        } else {
+            // If no item is selected, redirect to MenuPage
+            alert('No item selected. Redirecting to menu...');
+            window.location.href = 'MenuPage.html';
+        }
+        
+        // Update total price
+        function updateTotalPrice() {
+            const total = basePrice * quantity;
+            quantityDisplay.textContent = quantity;
+            totalPrice.textContent = `Total: ₱ ${total}`;
+        }
+        
+        // Increase quantity
+        increaseBtn.addEventListener('click', () => {
+            quantity++;
+            updateTotalPrice();
+        });
+        
+        // Decrease quantity
+        decreaseBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                updateTotalPrice();
+            }
+        });
+        
+        // Add to cart 
+        addToCartBtn.addEventListener('click', () => {
+            const total = basePrice * quantity;
+            
+            // Get current user's cart
+            const userCart = getUserCart();
+            
+            // Create cart item
+            const cartItem = {
+                id: generateOrderId(),
+                name: selectedItem.name,
+                category: selectedItem.category || 'MEALS',
+                quantity: quantity,
+                price: basePrice,
+                total: total,
+                image: selectedItem.image,
+                addedAt: new Date().toISOString()
+            };
+            
+            // Check if item already exists in cart
+            const existingIndex = userCart.findIndex(item => 
+                item.name === cartItem.name && 
+                item.category === cartItem.category
+            );
+            
+            if (existingIndex > -1) {
+                // Update quantity
+                userCart[existingIndex].quantity += cartItem.quantity;
+                userCart[existingIndex].total = userCart[existingIndex].price * userCart[existingIndex].quantity;
+            } else {
+                // Add new item
+                userCart.push(cartItem);
+            }
+            
+            // Save back to user's cart
+            saveUserCart(userCart);
+            
+            // Show success message
+            alert(`${quantity} × ${selectedItem.name} added to cart!\n\nTotal: ₱ ${total}`);
+            
+            // Reset quantity
+            quantity = 1;
+            updateTotalPrice();
+            
+            // Clear selected item
+            localStorage.removeItem('selectedItem');
+            
+            // Optional: Go back to previous page
+            // window.location.href = 'MenuPage.html';
+        });
+        
+        // Back button functionality - Goes back to previous page
+        backBtn.addEventListener('click', function() {
+            // Clear the stored item if going back
+            localStorage.removeItem('selectedItem');
+            
+            // Navigate back based on category or default to MenuPage
+            if (selectedItem && selectedItem.category) {
+                switch(selectedItem.category) {
+                    case 'MEALS':
+                        window.location.href = 'MealsMenuPage.html';
+                        break;
+                    case 'SILOG':
+                        window.location.href = 'SilogMenuPage.html';
+                        break;
+                    case 'SNACKS':
+                        window.location.href = 'SnacksMenuPage.html';
+                        break;
+                    case 'BILAO MEALS':
+                        window.location.href = 'BilaoMealsMenuPage.html';
+                        break;
+                    case 'DESSERTS':
+                        window.location.href = 'DessertsMenuPage.html';
+                        break;
+                    case 'DRINKS':
+                        window.location.href = 'DrinksMenuPage.html';
+                        break;
+                    default:
+                        window.location.href = 'MenuPage.html';
+                }
+            } else {
+                // Default to MenuPage
+                window.location.href = 'MenuPage.html';
+            }
+        });
+        
+        // Initialize
+        updateTotalPrice();
+    </script>
+</body>
+</html>

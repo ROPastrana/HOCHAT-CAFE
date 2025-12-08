@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+    <title>Hochat Café - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/SignUpPage.css">
+    
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-card">
+            <!-- Logo Section -->
+            <div class="logo-section">
+                 <img src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="logo" style="width: 130px; height: 130px;">
+            </div>
+            
+            <!-- Form Sections -->
+            <div class="form-sections">
+                <!-- User Details Section -->
+                <div class="section">
+                    <div class="section-title">User Details</div>
+                    <div class="input-row">
+                        <input type="text" class="input-field" placeholder="First Name">
+                        <input type="text" class="input-field" placeholder="Last Name">
+                    </div>
+                </div>
+                
+                <!-- Login & Contact Details Section -->
+                <div class="section">
+                    <div class="section-title">Login & Contact Details</div>
+                    <div class="input-row">
+                        <input type="email" class="input-field" placeholder="Email">
+                        <input type="tel" class="input-field" placeholder="Contact Number">
+                    </div>
+                    <div class="input-row">
+                        <input type="password" class="input-field" placeholder="Password">
+                        <input type="password" class="input-field" placeholder="Confirm Password">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sign Up Button -->
+            <button class="signup-button">Create your Account</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.signup-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get all input fields
+            const inputs = document.querySelectorAll('.input-field');
+            const firstName = inputs[0].value.trim();
+            const lastName = inputs[1].value.trim();
+            const email = inputs[2].value.trim();
+            const contactNumber = inputs[3].value.trim();
+            const password = inputs[4].value;
+            const confirmPassword = inputs[5].value;
+            
+            // Validation
+            if (!firstName || !lastName || !email || !contactNumber || !password || !confirmPassword) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address!');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters!');
+                return;
+            }
+            
+            // Check if email already exists
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const emailExists = users.some(user => user.email === email);
+            
+            if (emailExists) {
+                alert('This email is already registered!');
+                return;
+            }
+            
+            // Generate user ID
+            const userId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+            
+            // Create new user object
+            const newUser = {
+                id: userId,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                contactNumber: contactNumber,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Add to users array
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Initialize user-specific data storage (without logging them in)
+            const userKey = `user_${email}`;
+            const userData = {
+                cart: [],
+                orders: [],
+                favorites: []
+            };
+            localStorage.setItem(userKey, JSON.stringify(userData));
+            
+            // Show success message and redirect to login page
+            alert('Account created successfully!\n\nPlease login with your new account.');
+            
+            // Navigate to login page (NOT home page)
+            window.location.href = 'index.html';
+        });
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+    
+</body>
+</html>

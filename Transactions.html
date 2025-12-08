@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
+    <title>Hochat Café - Transactions</title>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/Transactions.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <a href = "HomePage.html">
+            <img class="logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Café Logo">
+        <nav class="nav-menu">
+            <a class="nav-item">HOME</a>
+            <a class="nav-item transactions-highlight">TRANSACTIONS</a>
+            <a class="nav-item">ABOUT US</a>
+            <a class="nav-item">CONTACT US</a>
+            <a class="nav-item">ORDERS</a>
+            <a class="logout-nav-item" id="logoutNavItem">LOGOUT</a>
+        </nav>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="close-menu" id="closeMenu">×</button>
+        <div class="menu-header">
+            <img class="menu-logo" src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a class="mobile-nav-item">HOME</a>
+            <a class="mobile-nav-item transactions-highlight">TRANSACTIONS</a>
+            <a class="mobile-nav-item">ABOUT US</a>
+            <a class="mobile-nav-item">CONTACT US</a>
+            <a class="mobile-nav-item">ORDERS</a>
+            <a class="mobile-nav-item logout-mobile">LOGOUT</a>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="transactions-container">
+            <!-- Page Header with Back Button -->
+            <div class="page-header">
+                <h1 class="page-title">Transactions</h1>
+                <button class="back-btn" id="backBtn">Back</button>
+            </div>
+            
+            <!-- SIMPLIFIED Transactions Section -->
+            <div class="transactions-section">
+                <h2 class="section-title">Past Orders</h2>
+                
+                <!-- Past Orders List -->
+                <div class="transaction-cards" id="transactionsList">
+                    <!-- Order 1 -->
+                    <div class="transaction-card">
+                        <div class="order-id">Order #HOCHAT-2024-001</div>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">2×</span>
+                                    <span class="item-name">Chicken Bulgogi</span>
+                                </div>
+                                <span class="item-price">₱ 210</span>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">1×</span>
+                                    <span class="item-name">Korean Bowl</span>
+                                </div>
+                                <span class="item-price">₱ 125</span>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">1×</span>
+                                    <span class="item-name">Katsu Curry</span>
+                                </div>
+                                <span class="item-price">₱ 225</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ 610</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Order 2 -->
+                    <div class="transaction-card">
+                        <div class="order-id">Order #HOCHAT-2024-002</div>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">3×</span>
+                                    <span class="item-name">Chicken Bulgogi Overload</span>
+                                </div>
+                                <span class="item-price">₱ 465</span>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">2×</span>
+                                    <span class="item-name">Katsu Ala King</span>
+                                </div>
+                                <span class="item-price">₱ 398</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ 913</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Order 3 -->
+                    <div class="transaction-card">
+                        <div class="order-id">Order #HOCHAT-2024-003</div>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">1×</span>
+                                    <span class="item-name">Bilao Specials</span>
+                                </div>
+                                <span class="item-price">₱ 599</span>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">4×</span>
+                                    <span class="item-name">Iced Coffee</span>
+                                </div>
+                                <span class="item-price">₱ 320</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ 969</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Order 4 -->
+                    <div class="transaction-card">
+                        <div class="order-id">Order #HOCHAT-2024-004</div>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">2×</span>
+                                    <span class="item-name">Korean Bowl</span>
+                                </div>
+                                <span class="item-price">₱ 250</span>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">2×</span>
+                                    <span class="item-name">Chocolate Cake</span>
+                                </div>
+                                <span class="item-price">₱ 180</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ 480</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Order 5 -->
+                    <div class="transaction-card">
+                        <div class="order-id">Order #HOCHAT-2024-005</div>
+                        
+                        <div class="order-items">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <span class="item-quantity">1×</span>
+                                    <span class="item-name">Katsu Curry</span>
+                                </div>
+                                <span class="item-price">₱ 225</span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ 275</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section - CONSISTENT WITH OTHER PAGES -->
+    <footer class="footer">
+        <div class="social-section">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/HochatCafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/FACEBOOK_ICON.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/hochatcafe" class="social-icon" target="_blank" rel="noopener noreferrer">
+                    <img src="HOTCHAT CAFE/INSTAGRAM_ICON.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== USER DATA MANAGEMENT ==========
+        
+        // Get current user safely
+        function getCurrentUser() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                // Redirect to login if no user
+                window.location.href = 'index.html';
+                return null;
+            }
+            return user;
+        }
+        
+        // Get user-specific key
+        function getUserKey() {
+            const user = getCurrentUser();
+            return user ? `user_${user.email}` : null;
+        }
+        
+        // Get user data
+        function getUserData() {
+            const userKey = getUserKey();
+            if (!userKey) return null;
+            
+            const data = localStorage.getItem(userKey);
+            return data ? JSON.parse(data) : { cart: [], orders: [], favorites: [] };
+        }
+        
+        // Get user orders
+        function getUserOrders() {
+            const userData = getUserData();
+            return userData ? userData.orders : [];
+        }
+        
+        // ========== MAIN CODE ==========
+        
+        // Check if user is logged in
+        const currentUser = getCurrentUser();
+        if (!currentUser) {
+            alert('Please login to view your transactions');
+            window.location.href = 'index.html';
+        }
+        
+        // UPDATED TO MATCH ADD TO CART PAGE NAVIGATION
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const overlay = document.getElementById('overlay');
+        const logoutNavItem = document.getElementById('logoutNavItem');
+        const backBtn = document.getElementById('backBtn');
+        const transactionsList = document.getElementById('transactionsList');
+        
+        // Create no transactions message
+        const noTransactionsMessage = document.createElement('div');
+        noTransactionsMessage.className = 'no-transactions';
+        noTransactionsMessage.textContent = 'No transactions found. Start ordering to see your history here!';
+        noTransactionsMessage.style.display = 'none';
+        transactionsList.parentNode.insertBefore(noTransactionsMessage, transactionsList.nextSibling);
+        
+        // Render USER-SPECIFIC transactions
+        function renderUserTransactions() {
+            const userOrders = getUserOrders();
+            transactionsList.innerHTML = '';
+            
+            if (userOrders.length === 0) {
+                transactionsList.style.display = 'none';
+                noTransactionsMessage.style.display = 'block';
+                return;
+            }
+            
+            transactionsList.style.display = 'flex';
+            noTransactionsMessage.style.display = 'none';
+            
+            // Display orders in reverse chronological order (newest first)
+            userOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            userOrders.forEach((order) => {
+                const transactionHTML = `
+                    <div class="transaction-card">
+                        <div class="order-id">Order #${order.id}</div>
+                        <div class="order-date">${new Date(order.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}</div>
+                        
+                        <div class="order-items">
+                            ${order.items.map(item => `
+                                <div class="order-item">
+                                    <div class="item-info">
+                                        <span class="item-quantity">${item.quantity}×</span>
+                                        <span class="item-name">${item.name}</span>
+                                    </div>
+                                    <span class="item-price">₱ ${item.total}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="order-summary">
+                            <span class="summary-label">Subtotal:</span>
+                            <span class="summary-value">₱ ${order.subtotal}</span>
+                        </div>
+                        <div class="order-summary">
+                            <span class="summary-label">Delivery Fee:</span>
+                            <span class="summary-value">₱ ${order.deliveryFee}</span>
+                        </div>
+                        <div class="order-summary">
+                            <span class="summary-label">Total:</span>
+                            <span class="summary-value">₱ ${order.total}</span>
+                        </div>
+                        <div class="order-status">
+                            Status: <span class="status-value">${order.status || 'Completed'}</span>
+                        </div>
+                    </div>
+                `;
+                transactionsList.innerHTML += transactionHTML;
+            });
+        }
+        
+        // Initialize with sample data if user has no orders yet (optional - for demo)
+        function initializeUserOrders() {
+            const userOrders = getUserOrders();
+            
+            if (userOrders.length === 0 && confirm('Would you like to see sample transactions for demonstration?')) {
+                // Add some sample orders for the current user
+                const sampleOrders = [
+                    {
+                        id: "HOCHAT-" + Date.now() + "-001",
+                        items: [
+                            { name: "Chicken Bulgogi", quantity: 2, price: 105, total: 210 },
+                            { name: "Korean Bowl", quantity: 1, price: 125, total: 125 },
+                            { name: "Katsu Curry", quantity: 1, price: 225, total: 225 }
+                        ],
+                        subtotal: 560,
+                        deliveryFee: 50,
+                        total: 610,
+                        date: new Date('2024-01-15T14:30:00Z').toISOString(),
+                        status: 'completed'
+                    },
+                    {
+                        id: "HOCHAT-" + (Date.now() - 86400000) + "-002",
+                        items: [
+                            { name: "Chicken Bulgogi Overload", quantity: 3, price: 155, total: 465 },
+                            { name: "Katsu Ala King", quantity: 2, price: 199, total: 398 }
+                        ],
+                        subtotal: 863,
+                        deliveryFee: 50,
+                        total: 913,
+                        date: new Date('2024-01-10T11:45:00Z').toISOString(),
+                        status: 'completed'
+                    }
+                ];
+                
+                // Save to user's orders
+                const userData = getUserData();
+                if (userData) {
+                    userData.orders = sampleOrders;
+                    const userKey = getUserKey();
+                    localStorage.setItem(userKey, JSON.stringify(userData));
+                }
+            }
+        }
+        
+        // Hamburger Menu
+        hamburgerMenu.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // Navigation - CORRECTED LINKS
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (!this.classList.contains('transactions-highlight')) {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html';
+                            break;
+                        default:
+                            // Do nothing for TRANSACTIONS (already here)
+                    }
+                }
+            });
+        });
+        
+        // Logout
+        logoutNavItem.addEventListener('click', function() {
+            if(confirm('Are you sure you want to log out?')) {
+                localStorage.removeItem('currentUser');
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+        
+        // Mobile menu navigation - CORRECTED LINKS
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if(this.classList.contains('logout-mobile')) {
+                    if(confirm('Are you sure you want to log out?')) {
+                        localStorage.removeItem('currentUser');
+                        alert('Logged out successfully!');
+                        window.location.href = 'index.html';
+                    }
+                } else if (!this.classList.contains('transactions-highlight')) {
+                    const page = this.textContent;
+                    switch(page) {
+                        case 'HOME':
+                            window.location.href = 'HomePage.html';
+                            break;
+                        case 'ABOUT US':
+                            window.location.href = 'AboutUs.html';
+                            break;
+                        case 'CONTACT US':
+                            window.location.href = 'ContactUs.html';
+                            break;
+                        case 'ORDERS':
+                            window.location.href = 'Cart.html';
+                            break;
+                        default:
+                            // Do nothing for TRANSACTIONS (already here)
+                    }
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+        
+        // Back button functionality
+        backBtn.addEventListener('click', function() {
+            window.history.back();
+        });
+        
+        // Initialize and render
+        // Uncomment the next line if you want sample data for demo
+        // initializeUserOrders();
+        renderUserTransactions();
+
+        
+    </script>
+</body>
+</html>
