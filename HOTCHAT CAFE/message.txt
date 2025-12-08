@@ -1,0 +1,326 @@
+Imports System
+Imports System.IO
+Imports System.Windows.Forms
+
+Public Class BillingAndPaymentForm
+    Inherits Form
+
+    ' Payment table data
+    Private paymentTable As New Dictionary(Of String, Decimal) From {
+        {"Initial Check up", 2000},
+        {"Follow up Check-Up", 500},
+        {"Iron Vitamin", 15},
+        {"B Complex", 25},
+        {"DHA", 20},
+        {"Flu Vac", 1500}
+    }
+
+    Private currentPatientPhone As String
+    Private patientData As String()
+    Private scheduleData As String()
+    Private totalAmountDue As Decimal = 0
+    Private visitTypePrice As Decimal = 0 ' Add this to track visit type price
+
+    Public Sub New(phoneNumber As String)
+        InitializeComponent()
+        currentPatientPhone = phoneNumber
+        LoadPatientData()
+        CalculateVitaminsAndBilling()
+    End Sub
+
+    Private Sub LoadPatientData()
+        Try
+            Dim patientsFilePath As String = GlobalVariables.GetFilePath("patients.txt")
+            Dim schedulesFilePath As String = GlobalVariables.GetFilePath("schedules.txt")
+
+            ' Load patient data
+            If File.Exists(patientsFilePath) Then
+                Dim patientLines = File.ReadAllLines(patientsFilePath)
+                For Each line In patientLines
+                    Dim fields = line.Split("|"c)
+                    If fields.Length >= 14 AndAlso fields(13).Trim() = currentPatientPhone.Trim() Then
+                        patientData = fields
+                        txtFullName.Text = fields(1)
+                        txtPhoneNumber.Text = fields(13)
+                        Exit For
+                    End If
+                Next
+            End If
+
+            ' Load schedule data
+            If File.Exists(schedulesFilePath) Then
+                Dim scheduleLines = File.ReadAllLines(schedulesFilePath)
+                For Each line In scheduleLines
+                    Dim fields = line.Split("|"c)
+                    If fields.Length >= 7 AndAlso fields(1).Trim() = currentPatientPhone.Trim() Then
+                        scheduleData = fields
+                        Dim visitType = fields(6)
+                        If visitType = "Initial Checkup" Then
+                            chbInitial.Checked = True
+                        ElseIf visitType = "Follow-up Checkup" Then
+                            chbFollow.Checked = True
+                        End If
+                        Exit For
+                    End If
+                Next
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error loading patient data: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CalculateVitaminsAndBilling()
+        If patientData Is Nothing OrElse patientData.Length < 14 Then
+            MessageBox.Show("Patient data not found!")
+            Return
+        End If
+
+        Try
+            ' Get next visit date from patient data
+            Dim nextVisitDateStr As String = patientData(12).Trim()
+            Dim nextVisitDate As DateTime
+
+            ' Try parsing with different date formats
+            If Not DateTime.TryParseExact(nextVisitDateStr, "MM/dd/yyyy", Nothing, Globalization.DateTimeStyles.None, nextVisitDate) Then
+                If Not DateTime.TryParseExact(nextVisitDateStr, "M/d/yyyy", Nothing, Globalization.DateTimeStyles.None, nextVisitDate) Then
+                    nextVisitDate = DateTime.Parse(nextVisitDateStr)
+                End If
+            End If
+
+            ' Get appointment date - use current date as fallback
+            Dim appointmentDate As DateTime = DateTime.Now
+            If scheduleData IsNot Nothing AndAlso scheduleData.Length >= 5 Then
+                Dim appointmentDateStr As String = scheduleData(4).Trim()
+                If Not String.IsNullOrEmpty(appointmentDateStr) Then
+                    If Not DateTime.TryParseExact(appointmentDateStr, "MM/dd/yyyy", Nothing, Globalization.DateTimeStyles.None, appointmentDate) Then
+                        If Not DateTime.TryParseExact(appointmentDateStr, "M/d/yyyy", Nothing, Globalization.DateTimeStyles.None, appointmentDate) Then
+                            appointmentDate = DateTime.Parse(appointmentDateStr)
+                        End If
+                    End If
+                End If
+            End If
+
+            ' Calculate days until next visit (Next Visit Date - Appointment Date)
+            Dim daysUntilNextVisit As Integer = (nextVisitDate - appointmentDate).Days
+            If daysUntilNextVisit < 0 Then
+                daysUntilNextVisit = 0 ' Ensure non-negative value
+            End If
+
+            txtVisit.Text = daysUntilNextVisit.ToString()
+
+            ' Initialize total amount
+            totalAmountDue = 0
+            visitTypePrice = 0 ' Reset visit type price
+
+            ' Add checkup cost and determine vitamins
+            If chbInitial.Checked Then
+                visitTypePrice = paymentTable("Initial Check up")
+                totalAmountDue += visitTypePrice
+                txtVisitPrice.Text = $"₱{visitTypePrice:N2}"
+
+                ' For Initial Checkup: All vitamins including Flu Vaccine
+                CalculateVitaminQuantities(daysUntilNextVisit, includeFluVaccine:=True)
+
+            ElseIf chbFollow.Checked Then
+                visitTypePrice = paymentTable("Follow up Check-Up")
+                totalAmountDue += visitTypePrice
+                txtVisitPrice.Text = $"₱{visitTypePrice:N2}"
+
+                ' For Follow-up Checkup: All vitamins EXCEPT Flu Vaccine
+                CalculateVitaminQuantities(daysUntilNextVisit, includeFluVaccine:=False)
+            End If
+
+            ' Update total amounts
+            txtTotal.Text = $"₱{totalAmountDue:N2}"
+            txtTotalAmt.Text = $"₱{totalAmountDue:N2}"
+            txtStatus.Text = "Pending"
+
+        Catch ex As Exception
+            MessageBox.Show($"Error calculating vitamins and billing: {ex.Message}" & Environment.NewLine &
+                          "Please check the date formats in patients.txt",
+                          "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub CalculateVitaminQuantities(daysUntilNextVisit As Integer, includeFluVaccine As Boolean)
+        ' Iron Vitamin (once per day)
+        Dim ironQuantity As Integer = daysUntilNextVisit
+        Dim ironCost As Decimal = ironQuantity * paymentTable("Iron Vitamin")
+        totalAmountDue += ironCost
+        txtIronVitamin.Text = $"{ironQuantity} pcs"
+        txtIronVitaminPrice.Text = $"₱{ironCost:N2}"
+
+        ' B Complex (once per day)
+        Dim bComplexQuantity As Integer = daysUntilNextVisit
+        Dim bComplexCost As Decimal = bComplexQuantity * paymentTable("B Complex")
+        totalAmountDue += bComplexCost
+        txtBComplex.Text = $"{bComplexQuantity} pcs"
+        txtBComplexPrice.Text = $"₱{bComplexCost:N2}"
+
+        ' DHA (three times per day)
+        Dim dhaQuantity As Integer = daysUntilNextVisit * 3
+        Dim dhaCost As Decimal = dhaQuantity * paymentTable("DHA")
+        totalAmountDue += dhaCost
+        txtDHA.Text = $"{dhaQuantity} pcs"
+        txtDHAPrice.Text = $"₱{dhaCost:N2}"
+
+        ' Flu Vaccine (only if included and only once)
+        If includeFluVaccine Then
+            totalAmountDue += paymentTable("Flu Vac")
+            txtFluVaccine.Text = "1 pc"
+            txtFluVaccinePrice.Text = $"₱{paymentTable("Flu Vac"):N2}"
+        Else
+            txtFluVaccine.Text = "0 pcs"
+            txtFluVaccinePrice.Text = "₱0.00"
+        End If
+    End Sub
+
+    Private Sub CalculateChange(sender As Object, e As EventArgs)
+        Try
+            If Decimal.TryParse(txtAmtPaid.Text.Replace("₱", "").Trim(), Nothing) Then
+                Dim amountPaid As Decimal = Decimal.Parse(txtAmtPaid.Text.Replace("₱", "").Trim())
+                Dim change As Decimal = amountPaid - totalAmountDue
+                txtChange.Text = $"₱{change:N2}"
+
+                If change < 0 Then
+                    txtChange.ForeColor = Color.Red
+                Else
+                    txtChange.ForeColor = Color.Green
+                End If
+            Else
+                txtChange.Text = "₱0.00"
+                txtChange.ForeColor = Color.Black
+            End If
+        Catch ex As Exception
+            txtChange.Text = "₱0.00"
+        End Try
+    End Sub
+
+    Private Sub SaveBillingToFile()
+        Try
+            Dim billingFilePath As String = GlobalVariables.GetFilePath("billing.txt")
+
+            ' Get visit type
+            Dim visitType As String = ""
+            If chbInitial.Checked Then
+                visitType = "Initial Checkup"
+            ElseIf chbFollow.Checked Then
+                visitType = "Follow-up Checkup"
+            End If
+
+            ' Updated billing record with visit type and visit type price
+            Dim billingRecord As String = $"{txtFullName.Text}|{txtPhoneNumber.Text}|{visitType}|{visitTypePrice}|{GetPrescribedVitamins()}|{totalAmountDue}|{txtAmtPaid.Text.Replace("₱", "").Trim()}|Complete|{DateTime.Now:MM/dd/yyyy HH:mm}"
+
+            Using writer As New StreamWriter(billingFilePath, True)
+                writer.WriteLine(billingRecord)
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error saving billing record: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Function GetPrescribedVitamins() As String
+        Dim vitamins As New List(Of String)
+
+        If txtIronVitamin.Text <> "0 pcs" Then vitamins.Add("Iron Vitamin")
+        If txtBComplex.Text <> "0 pcs" Then vitamins.Add("B Complex")
+        If txtDHA.Text <> "0 pcs" Then vitamins.Add("DHA")
+        If txtFluVaccine.Text <> "0 pcs" Then vitamins.Add("Flu Vaccine")
+
+        Return String.Join(", ", vitamins)
+    End Function
+
+    Private Sub btnCompleteBP_Click(sender As Object, e As EventArgs) Handles btnCompleteBP.Click
+        Try
+            ' Validate payment
+            If String.IsNullOrEmpty(txtAmtPaid.Text) OrElse Not Decimal.TryParse(txtAmtPaid.Text.Replace("₱", "").Trim(), Nothing) Then
+                MessageBox.Show("Please enter a valid payment amount before completing.")
+                Return
+            End If
+
+            Dim amountPaid As Decimal = Decimal.Parse(txtAmtPaid.Text.Replace("₱", "").Trim())
+            If amountPaid < totalAmountDue Then
+                MessageBox.Show("Please enter sufficient payment amount before completing.")
+                Return
+            End If
+
+            ' Update status
+            txtStatus.Text = "Complete"
+
+            ' Save to billing database
+            SaveBillingToFile()
+
+            ' Delete patient and schedules after successful payment
+            'DeletePatientAndSchedules()
+
+            MessageBox.Show("Billing and payment completed successfully! Your change is " + txtChange.Text)
+
+            ' Return to Patient Menu (Form4)
+            Dim patientMenu As New PatientMenuForm()
+            patientMenu.Show()
+            Me.Close()
+
+        Catch ex As Exception
+            MessageBox.Show("Error completing billing: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub DeletePatientAndSchedules()
+        Try
+            Dim patientsFilePath As String = GlobalVariables.GetFilePath("patients.txt")
+            Dim schedulesFilePath As String = GlobalVariables.GetFilePath("schedules.txt")
+
+            ' Delete from patients.txt
+            If File.Exists(patientsFilePath) Then
+                Dim patientsList As New List(Of String)(File.ReadAllLines(patientsFilePath))
+                Dim patientToRemove As String = patientsList.FirstOrDefault(Function(p) p.Contains(currentPatientPhone))
+
+                If patientToRemove IsNot Nothing Then
+                    patientsList.Remove(patientToRemove)
+                    File.WriteAllLines(patientsFilePath, patientsList.ToArray())
+                End If
+            End If
+
+            ' Delete from schedules.txt
+            If File.Exists(schedulesFilePath) Then
+                Dim schedulesList As New List(Of String)(File.ReadAllLines(schedulesFilePath))
+                schedulesList.RemoveAll(Function(s) s.Contains(currentPatientPhone))
+                File.WriteAllLines(schedulesFilePath, schedulesList.ToArray())
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Warning: Could not delete patient records: " & ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End Try
+    End Sub
+
+    Private Sub Form7_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        AddHandler txtAmtPaid.TextChanged, AddressOf CalculateChange
+
+        ' Make checkboxes read-only
+        chbInitial.Enabled = False
+        chbFollow.Enabled = False
+    End Sub
+
+    Private Sub chbInitial_CheckedChanged(sender As Object, e As EventArgs) Handles chbInitial.CheckedChanged
+        If chbInitial.Checked Then
+            chbFollow.Checked = False
+        End If
+    End Sub
+
+    Private Sub chbFollow_CheckedChanged(sender As Object, e As EventArgs) Handles chbFollow.CheckedChanged
+        If chbFollow.Checked Then
+            chbInitial.Checked = False
+        End If
+    End Sub
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+
+    End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Hide()
+        PatientMenuForm.Show()
+    End Sub
+End Class
