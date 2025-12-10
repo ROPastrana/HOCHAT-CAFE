@@ -176,6 +176,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 110px;
 }
 
 /* Page Header with Title and Back Button */
@@ -598,4 +599,5 @@ body {
     .mobile-menu, .overlay {
         display: none !important;
     }
+
 }
