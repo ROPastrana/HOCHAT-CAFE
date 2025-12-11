@@ -444,6 +444,18 @@ body {
         height: 32px;
         font-size: 14px;
     }
+    
+    .food-image {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 25px;
+    }.food-image {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 25px;
+    }
 
     .mobile-menu {
         width: 250px;
@@ -479,4 +491,5 @@ body {
     .mobile-menu, .overlay {
         display: none !important;
     }
+
 }
