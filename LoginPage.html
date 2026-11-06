@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
+    <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
+    <meta name="author" content="HOCHAT CAFE">
+    <title>Hochat Café - Log In</title>
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/site.css">
+    <link rel="stylesheet" href="CSS FILES/LoginPage.css">
+    <script src="JS FILES/menu-data.js"></script>
+    <script src="JS FILES/site.js"></script>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-photo">
+            <p class="auth-quote">It's all about taste.</p>
+        </div>
+        <main class="auth-panel" id="main">
+            <div class="auth-box">
+                <a class="back-link" href="index.html" id="backLink">Back to the site</a>
+                <img class="auth-logo" src="HOTCHAT CAFE/WEB IMAGES/logo.webp" alt="Hochat Café" width="88" height="87">
+                <h1 class="auth-title">Welcome back</h1>
+                <p class="auth-subtitle">Log in to order your favorites.</p>
+
+                <p class="auth-error" id="authError" role="alert" hidden></p>
+
+                <form class="auth-form" id="loginForm" novalidate>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                </form>
+
+                <p class="auth-switch">New to Hochat Café? <a id="signupLink" href="SignUpPage.html">Create an account</a></p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ========== LOGIN PAGE ==========
+        const errorBox = document.getElementById('authError');
+        const nextPage = getNextPage();
+
+        document.getElementById('backLink').insertAdjacentHTML('afterbegin', icon('arrowLeft'));
+        document.getElementById('signupLink').href = `SignUpPage.html?next=${encodeURIComponent(nextPage)}`;
+
+        // Someone already logged in doesn't need this page
+        if (isLoggedIn()) {
+            location.replace(nextPage);
+        }
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.hidden = false;
+        }
+
+        // Create the sample accounts the first time
+        function initializeUsers() {
+            if (!localStorage.getItem('users')) {
+                const sampleUsers = [
+                    {
+                        id: 1,
+                        firstName: "John",
+                        lastName: "Doe",
+                        email: "john@example.com",
+                        contactNumber: "09123456789",
+                        password: "password123"
+                    },
+                    {
+                        id: 2,
+                        firstName: "Jane",
+                        lastName: "Smith",
+                        email: "jane@example.com",
+                        contactNumber: "09876543210",
+                        password: "password456"
+                    }
+                ];
+                localStorage.setItem('users', JSON.stringify(sampleUsers));
+            }
+        }
+
+        function initializeUserData(userEmail) {
+            const userKey = `user_${userEmail}`;
+            if (!localStorage.getItem(userKey)) {
+                localStorage.setItem(userKey, JSON.stringify({ cart: [], orders: [], favorites: [] }));
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showError('Please enter your email and password.');
+                return;
+            }
+
+            initializeUsers();
+
+            const users = readJson('users', []);
+            const user = users.find((entry) => entry.email === email);
+
+            if (!user) {
+                showError('No account found with this email.');
+                return;
+            }
+
+            if (user.password !== password) {
+                showError('Incorrect password. Please try again.');
+                return;
+            }
+
+            // Save the session WITHOUT the password
+            localStorage.setItem('currentUser', JSON.stringify({
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                contactNumber: user.contactNumber
+            }));
+
+            initializeUserData(user.email);
+            setFlashMessage(`Welcome back, ${user.firstName}!`);
+            location.href = nextPage;
+        });
+    </script>
+</body>
+</html>

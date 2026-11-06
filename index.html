@@ -6,124 +6,179 @@
     <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
     <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
     <meta name="author" content="HOCHAT CAFE">
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS FILES/LoginPage.css">
-    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
-    <title>Hochat Cafe - Login Page</title>
-    
+    <title>Hochat Café - Home</title>
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/site.css">
+    <link rel="stylesheet" href="CSS FILES/HomePage.css">
+    <script src="JS FILES/menu-data.js"></script>
+    <script src="JS FILES/site.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="login-card">
-            <!-- Logo Section -->
-            <div class="logo">
-                <img src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="Hochat Cafe Logo">
-                
+    <script>renderHeader('home');</script>
+
+    <main id="main">
+        <section class="hero">
+            <div class="container hero-inner">
+                <div class="hero-text">
+                    <span class="hero-eyebrow">Hochat Café · Gerona, Tarlac</span>
+                    <h1 class="hero-title">It's all about taste.</h1>
+                    <p class="hero-subtitle">Fresh Ingredients, Unforgettable Flavors.</p>
+                    <div class="hero-buttons">
+                        <a class="btn btn-dark" href="MenuPage.html">Discover the Menu</a>
+                        <a class="btn btn-hero-outline" href="ContactUs.html">Visit Us</a>
+                    </div>
+                </div>
+
+                <div class="carousel" id="carousel" role="region" aria-roledescription="carousel" aria-label="Featured food">
+                    <div class="carousel-window">
+                        <div class="carousel-track" id="carouselTrack">
+                            <div class="carousel-slide">
+                                <span class="slide-badge">Featured</span>
+                                <img class="slide-banoffee" src="HOTCHAT CAFE/WEB IMAGES/banoffee.webp" alt="Banoffee in a Hochat Café tub">
+                                <div class="slide-caption">
+                                    <h2 class="slide-title">Banoffee</h2>
+                                    <p class="slide-desc">Our signature dessert is pure caramel indulgence, offering a smooth and deeply satisfying sweet escape.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <span class="slide-badge">Featured</span>
+                                <img src="HOTCHAT CAFE/WEB IMAGES/hero-sisig-cones.webp" alt="Sisig Cones">
+                                <div class="slide-caption">
+                                    <h2 class="slide-title">Sisig Cones</h2>
+                                    <p class="slide-desc">Our signature Sisig Cones are a crispy, savory street-food masterpiece, finished with a light, zesty foam.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <span class="slide-badge slide-badge-soon">Available Soon</span>
+                                <img src="HOTCHAT CAFE/WEB IMAGES/hero-sulit-meal.webp" alt="Sulit Meal">
+                                <div class="slide-caption">
+                                    <h2 class="slide-title">Sulit Meal</h2>
+                                    <p class="slide-desc">The perfect all-day value plate: hot fried rice, crispy fries, savory sausages, and a sunny-side-up egg.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <span class="slide-badge">Featured</span>
+                                <img src="HOTCHAT CAFE/WEB IMAGES/hero-katsu-burger.webp" alt="Katsu Burger with Fries">
+                                <div class="slide-caption">
+                                    <h2 class="slide-title">Katsu Burger with Fries</h2>
+                                    <p class="slide-desc">This crispy, cheesy, ultimate comfort meal is ready for your next perfect lunch.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <span class="slide-badge">Featured</span>
+                                <img src="HOTCHAT CAFE/WEB IMAGES/hero-carbonara.webp" alt="Hochat Carbonara">
+                                <div class="slide-caption">
+                                    <h2 class="slide-title">Hochat Carbonara</h2>
+                                    <p class="slide-desc">Our rich, creamy, and comforting pasta, topped with a perfect egg.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow carousel-prev" type="button" id="prevBtn" aria-label="Previous slide"></button>
+                        <button class="carousel-arrow carousel-next" type="button" id="nextBtn" aria-label="Next slide"></button>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                </div>
             </div>
+        </section>
 
-            <!-- Login Form -->
-            <form class="login-form" action="/login" method="POST">
-                <div class="input-field">
-                    <input type="email" id="email" name="email" placeholder="Email" required>
+        <section class="section">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <span class="eyebrow">Our Menu</span>
+                        <h2 class="section-title">What are you craving?</h2>
+                    </div>
+                    <a class="text-link" href="MenuPage.html">See full menu</a>
                 </div>
-                <div class="input-field">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                <script>renderCategoryTiles();</script>
+            </div>
+        </section>
+
+        <section class="story-band">
+            <div class="container story-inner">
+                <img class="story-photo" src="HOTCHAT CAFE/WEB IMAGES/cafe-interior.webp" alt="Colorful dining area of Hochat Café with a pink mural and pastel chairs" loading="lazy">
+                <div>
+                    <span class="eyebrow">Our Story</span>
+                    <h2 class="section-title">A warm place in the heart of Gerona</h2>
+                    <p class="story-text">Since 2019, Hochat Café has been a go-to hangout for families, students, and food lovers in the community, a space to relax, catch up, and create memories.</p>
+                    <a class="btn btn-primary" href="AboutUs.html">Read Our Story</a>
                 </div>
-                <button type="submit" class="login-btn">Log In</button>
-            </form>
+            </div>
+        </section>
+    </main>
 
-            <!-- Sign Up Link -->
-            <div class="signup-link" onclick="window.location.href='/SignUpPage.html'">Sign up</div>
-        </div>
-    </div>
-
+    <script>renderFooter();</script>
     <script>
-     // Form submission handling
-    document.querySelector('.login-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        // Initialize users if not exists
-        if (!localStorage.getItem('users')) {
-            const sampleUsers = [
-                {
-                    id: 1,
-                    firstName: "John",
-                    lastName: "Doe",
-                    email: "john@example.com",
-                    contactNumber: "09123456789",
-                    password: "password123"
-                },
-                {
-                    id: 2,
-                    firstName: "Jane",
-                    lastName: "Smith",
-                    email: "jane@example.com",
-                    contactNumber: "09876543210",
-                    password: "password456"
-                }
-            ];
-            localStorage.setItem('users', JSON.stringify(sampleUsers));
-        }
-        
-        // Get users from localStorage
-        const users = JSON.parse(localStorage.getItem('users'));
-        
-        // Check if user exists
-        const user = users.find(u => u.email === email);
-        
-        if (!user) {
-            alert('No account found with this email');
-            return;
-        }
-        
-        if (user.password !== password) {
-            alert('Incorrect password');
-            return;
-        }
-        
-        // Login successful - save current user (WITHOUT PASSWORD)
-        const userSession = {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            contactNumber: user.contactNumber
-        };
-        
-        localStorage.setItem('currentUser', JSON.stringify(userSession));
-        
-        // Initialize user-specific data storage
-        initializeUserData(user.email);
-        
-        alert(`Login successful! Welcome back, ${user.firstName}!`);
-        
-        // Navigate to home page
-        window.location.href = 'HomePage.html';
-    });
-    
-    // Initialize user-specific data
-    function initializeUserData(userEmail) {
-        const userKey = `user_${userEmail}`;
-        
-        // If first time login, create user data structure
-        if (!localStorage.getItem(userKey)) {
-            const userData = {
-                cart: [],
-                orders: [],
-                favorites: []
-            };
-            localStorage.setItem(userKey, JSON.stringify(userData));
-        }
-    }
-    
-    // Sign up link functionality
-    document.querySelector('.signup-link').addEventListener('click', function() {
-        window.location.href = 'SignUpPage.html';
-    });
-</script>
+        // ========== CAROUSEL ==========
+        const carousel = document.getElementById('carousel');
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        const slides = [...document.querySelectorAll('.carousel-slide')];
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let currentSlide = 0;
+        let slideTimer = null;
 
+        document.getElementById('prevBtn').innerHTML = icon('left');
+        document.getElementById('nextBtn').innerHTML = icon('right');
+
+        const dots = slides.map((slide, index) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+            return dot;
+        });
+
+        function goToSlide(index) {
+            currentSlide = (index + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== currentSlide)));
+            dots.forEach((dot, i) => dot.classList.toggle('is-active', i === currentSlide));
+        }
+
+        function startAutoSlide() {
+            if (reduceMotion || slideTimer) return;
+            slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(slideTimer);
+            slideTimer = null;
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => goToSlide(currentSlide - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        // Pause while the visitor is reading or using the carousel
+        carousel.addEventListener('mouseenter', stopAutoSlide);
+        carousel.addEventListener('mouseleave', startAutoSlide);
+        carousel.addEventListener('focusin', stopAutoSlide);
+        carousel.addEventListener('focusout', startAutoSlide);
+
+        carousel.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+            if (event.key === 'ArrowRight') goToSlide(currentSlide + 1);
+        });
+
+        // Swipe support for phones
+        let touchStartX = 0;
+        carousel.addEventListener('touchstart', (event) => {
+            touchStartX = event.touches[0].clientX;
+        }, { passive: true });
+        carousel.addEventListener('touchend', (event) => {
+            const distance = touchStartX - event.changedTouches[0].clientX;
+            if (Math.abs(distance) > 50) {
+                goToSlide(currentSlide + (distance > 0 ? 1 : -1));
+            }
+        });
+
+        goToSlide(0);
+        startAutoSlide();
+    </script>
 </body>
 </html>

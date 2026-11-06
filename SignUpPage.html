@@ -6,98 +6,127 @@
     <meta name="description" content="HOCHAT CAFE - Serving the best and budget-friendly in town. Premium food, great ambiance, and excellent service all in one place. Visit us at Gerona, Tarlac City.">
     <meta name="keywords" content="hochat cafe, HOCHAT CAFE, Gerona Restaurant, Cafe Gerona, Hochat, hochat">
     <meta name="author" content="HOCHAT CAFE">
-    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/x-icon" />
     <title>Hochat Café - Sign Up</title>
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS FILES/SignUpPage.css">
-    
+    <link rel="icon" href="HOTCHAT CAFE/HOCHAT-CAFE LOGO-ICON.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS FILES/site.css">
+    <link rel="stylesheet" href="CSS FILES/LoginPage.css">
+    <script src="JS FILES/menu-data.js"></script>
+    <script src="JS FILES/site.js"></script>
 </head>
 <body>
-    <div class="signup-container">
-        <div class="signup-card">
-            <!-- Logo Section -->
-            <div class="logo-section">
-                 <img src="HOTCHAT CAFE/HOCHAT CAFE LOGO.png" alt="logo" style="width: 130px; height: 130px;">
-            </div>
-            
-            <!-- Form Sections -->
-            <div class="form-sections">
-                <!-- User Details Section -->
-                <div class="section">
-                    <div class="section-title">User Details</div>
-                    <div class="input-row">
-                        <input type="text" class="input-field" placeholder="First Name">
-                        <input type="text" class="input-field" placeholder="Last Name">
-                    </div>
-                </div>
-                
-                <!-- Login & Contact Details Section -->
-                <div class="section">
-                    <div class="section-title">Login & Contact Details</div>
-                    <div class="input-row">
-                        <input type="email" class="input-field" placeholder="Email">
-                        <input type="tel" class="input-field" placeholder="Contact Number">
-                    </div>
-                    <div class="input-row">
-                        <input type="password" class="input-field" placeholder="Password">
-                        <input type="password" class="input-field" placeholder="Confirm Password">
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Sign Up Button -->
-            <button class="signup-button">Create your Account</button>
+    <div class="auth-page">
+        <div class="auth-photo">
+            <p class="auth-quote">Every dish, every drink, every story shared.</p>
         </div>
+        <main class="auth-panel" id="main">
+            <div class="auth-box auth-box-wide">
+                <a class="back-link" href="index.html" id="backLink">Back to the site</a>
+                <img class="auth-logo" src="HOTCHAT CAFE/WEB IMAGES/logo.webp" alt="Hochat Café" width="88" height="87">
+                <h1 class="auth-title">Create your account</h1>
+                <p class="auth-subtitle">It only takes a minute, and then you can start ordering.</p>
+
+                <p class="auth-error" id="authError" role="alert" hidden></p>
+
+                <form class="auth-form" id="signupForm" novalidate>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" autocomplete="given-name" required>
+                        </div>
+                        <div class="field">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" autocomplete="family-name" required>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" autocomplete="email" required>
+                        </div>
+                        <div class="field">
+                            <label for="contactNumber">Contact Number</label>
+                            <input type="tel" id="contactNumber" autocomplete="tel" required>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" autocomplete="new-password" minlength="6" required>
+                        </div>
+                        <div class="field">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" autocomplete="new-password" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">Create Your Account</button>
+                </form>
+
+                <p class="auth-switch">Already have an account? <a id="loginLink" href="LoginPage.html">Log in</a></p>
+            </div>
+        </main>
     </div>
 
     <script>
-        document.querySelector('.signup-button').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Get all input fields
-            const inputs = document.querySelectorAll('.input-field');
-            const firstName = inputs[0].value.trim();
-            const lastName = inputs[1].value.trim();
-            const email = inputs[2].value.trim();
-            const contactNumber = inputs[3].value.trim();
-            const password = inputs[4].value;
-            const confirmPassword = inputs[5].value;
-            
-            // Validation
+        // ========== SIGN UP PAGE ==========
+        const errorBox = document.getElementById('authError');
+        const loginPage = `LoginPage.html?next=${encodeURIComponent(getNextPage())}`;
+
+        document.getElementById('backLink').insertAdjacentHTML('afterbegin', icon('arrowLeft'));
+        document.getElementById('loginLink').href = loginPage;
+
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.hidden = false;
+            errorBox.scrollIntoView({ block: 'center' });
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const contactNumber = document.getElementById('contactNumber').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
             if (!firstName || !lastName || !email || !contactNumber || !password || !confirmPassword) {
-                alert('Please fill in all fields!');
+                showError('Please fill in all fields.');
                 return;
             }
-            
+
             if (!validateEmail(email)) {
-                alert('Please enter a valid email address!');
+                showError('Please enter a valid email address.');
                 return;
             }
-            
+
             if (password !== confirmPassword) {
-                alert('Passwords do not match!');
+                showError('Passwords do not match.');
                 return;
             }
-            
+
             if (password.length < 6) {
-                alert('Password must be at least 6 characters!');
+                showError('Password must be at least 6 characters.');
                 return;
             }
-            
-            // Check if email already exists
-            let users = JSON.parse(localStorage.getItem('users') || '[]');
-            const emailExists = users.some(user => user.email === email);
-            
-            if (emailExists) {
-                alert('This email is already registered!');
+
+            const users = readJson('users', []);
+
+            if (users.some((user) => user.email === email)) {
+                showError('This email is already registered.');
                 return;
             }
-            
-            // Generate user ID
-            const userId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-            
-            // Create new user object
-            const newUser = {
+
+            const userId = users.length > 0 ? Math.max(...users.map((user) => user.id)) + 1 : 1;
+
+            users.push({
                 id: userId,
                 firstName: firstName,
                 lastName: lastName,
@@ -105,33 +134,13 @@
                 contactNumber: contactNumber,
                 password: password,
                 createdAt: new Date().toISOString()
-            };
-            
-            // Add to users array
-            users.push(newUser);
+            });
             localStorage.setItem('users', JSON.stringify(users));
-            
-            // Initialize user-specific data storage (without logging them in)
-            const userKey = `user_${email}`;
-            const userData = {
-                cart: [],
-                orders: [],
-                favorites: []
-            };
-            localStorage.setItem(userKey, JSON.stringify(userData));
-            
-            // Show success message and redirect to login page
-            alert('Account created successfully!\n\nPlease login with your new account.');
-            
-            // Navigate to login page (NOT home page)
-            window.location.href = 'index.html';
+            localStorage.setItem(`user_${email}`, JSON.stringify({ cart: [], orders: [], favorites: [] }));
+
+            setFlashMessage('Account created! Please log in.');
+            location.href = loginPage;
         });
-        
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
     </script>
-    
 </body>
 </html>
