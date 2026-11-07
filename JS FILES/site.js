@@ -74,9 +74,51 @@ function icon(name) {
     return `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[name]}</svg>`;
 }
 
+// ========== SERVER REQUESTS ==========
+
+const SERVER_ERROR = "We can't reach the server right now. Please try again.";
+
+// Sends a POST when there's a body, otherwise a GET. Every endpoint replies
+// with JSON containing "ok". This throws if the server can't be reached.
+async function apiRequest(endpoint, body) {
+    const options = body === undefined ? {} : {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    };
+    const response = await fetch(`api/${endpoint}.php`, options);
+    return response.json();
+}
+
 // ========== USER DATA ==========
 // Visitors can browse without an account, so these return null or an
 // empty list for guests instead of sending them to the login page.
+//
+// The server decides who is logged in. "currentUser" is only a saved copy
+// so the header can draw instantly, and syncSession() keeps it honest.
+
+// Accounts used to be saved in the browser with plain text passwords
+localStorage.removeItem('users');
+
+async function syncSession() {
+    let result;
+    try {
+        result = await apiRequest('me');
+    } catch (error) {
+        return;
+    }
+    if (!result.ok) return;
+
+    const savedUser = getCurrentUser();
+    if (result.user) {
+        localStorage.setItem('currentUser', JSON.stringify(result.user));
+    } else {
+        localStorage.removeItem('currentUser');
+    }
+
+    // The page was drawn for a different login state, so draw it again
+    if (savedUser?.email !== result.user?.email) location.reload();
+}
 
 function getCurrentUser() {
     return readJson('currentUser', null);
@@ -155,6 +197,15 @@ async function logOut() {
         cancelText: 'Stay Logged In'
     });
     if (!confirmed) return;
+
+    try {
+        const result = await apiRequest('logout', {});
+        if (!result.ok) throw new Error(result.error);
+    } catch (error) {
+        showToast(SERVER_ERROR);
+        return;
+    }
+
     localStorage.removeItem('currentUser');
     setFlashMessage('You have been logged out.');
     location.href = 'index.html';
@@ -414,4 +465,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.removeItem('flashMessage');
         showToast(flash);
     }
+
+    // Skipped on the login and sign up pages so a slow check can't undo a
+    // login that finished while it was running.
+    if (!document.querySelector('.auth-page')) syncSession();
 });

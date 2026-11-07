@@ -65,39 +65,7 @@
             errorBox.hidden = false;
         }
 
-        // Create the sample accounts the first time
-        function initializeUsers() {
-            if (!localStorage.getItem('users')) {
-                const sampleUsers = [
-                    {
-                        id: 1,
-                        firstName: "John",
-                        lastName: "Doe",
-                        email: "john@example.com",
-                        contactNumber: "09123456789",
-                        password: "password123"
-                    },
-                    {
-                        id: 2,
-                        firstName: "Jane",
-                        lastName: "Smith",
-                        email: "jane@example.com",
-                        contactNumber: "09876543210",
-                        password: "password456"
-                    }
-                ];
-                localStorage.setItem('users', JSON.stringify(sampleUsers));
-            }
-        }
-
-        function initializeUserData(userEmail) {
-            const userKey = `user_${userEmail}`;
-            if (!localStorage.getItem(userKey)) {
-                localStorage.setItem(userKey, JSON.stringify({ cart: [], orders: [], favorites: [] }));
-            }
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', (event) => {
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const email = document.getElementById('email').value.trim();
@@ -108,34 +76,28 @@
                 return;
             }
 
-            initializeUsers();
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
 
-            const users = readJson('users', []);
-            const user = users.find((entry) => entry.email === email);
+            try {
+                const result = await apiRequest('login', { email, password });
 
-            if (!user) {
-                showError('No account found with this email.');
-                return;
+                if (!result.ok) {
+                    showError(result.error);
+                    return;
+                }
+
+                // The server keeps the real session. This copy draws the header.
+                localStorage.setItem('currentUser', JSON.stringify(result.user));
+                setFlashMessage(`Welcome back, ${result.user.firstName}!`);
+                location.href = nextPage;
+            } catch (error) {
+                showError(SERVER_ERROR);
+            } finally {
+                submitButton.disabled = false;
             }
-
-            if (user.password !== password) {
-                showError('Incorrect password. Please try again.');
-                return;
-            }
-
-            // Save the session WITHOUT the password
-            localStorage.setItem('currentUser', JSON.stringify({
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                contactNumber: user.contactNumber
-            }));
-
-            initializeUserData(user.email);
-            setFlashMessage(`Welcome back, ${user.firstName}!`);
-            location.href = nextPage;
         });
+
     </script>
 </body>
 </html>
